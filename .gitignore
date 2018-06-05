@@ -1,0 +1,8 @@
+crypto.conf
+chatbot.conf
+crypto.conf
+.idea
+__pycache__
+tempout
+*.iml
+test.py

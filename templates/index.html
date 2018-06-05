@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{#    <title>{{msg}}</title>#}
+    <link href="/static/css/chat.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="url_for('static',filename='demo.css') " rel="stylesheet" type="text/css"/>-->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="flex-center position-ref full-height">
+    <div class="content">
+{#        <div class="title m-b-md">#}
+{#            {{msg}}#}
+{#        </div>#}
+        <div class="title m-b-md">
+             <a href="{% url 'emotional' %}">click here</a>
+        </div>
+        <div class="links">
+            <a href="{% url 'synonyms' %}">同义词</a>
+            <a href="{% url 'emotional' %}">情感词</a>
+            <a href="{% url 'sensitive' %}">敏感词</a>
+            <a href="https://forge.laravel.com">Forge</a>
+            <a href="https://github.com/laravel/laravel">GitHub</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

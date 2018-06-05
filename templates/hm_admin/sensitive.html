@@ -1,0 +1,228 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<div>
+    <div class="table-responsive">
+        <div class="table-responsive">
+            <!--<span>asdasdz</span>-->
+        </div>
+    </div>
+
+    <h2 class="sub-header">敏感词管理</h2>
+    <div class="table-responsive">
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addModal">新建敏感词</button>
+        <a class="btn btn-primary btn-lg" href="{% url 'sensitive_init' %}">初始化</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped ">
+            <thead>
+            <tr>
+                <th>词条</th>
+                <th>父级词条id</th>
+                <th>计数</th>
+                <th>状态是否可用</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for sensitive in obj%}
+            <tr>
+                <td id="word_{{sensitive.id}}">{{sensitive.word }}</td>
+                <td id="table_type_{{sensitive.id}}">{{sensitive.table_type }}</td>
+                <td id="count_{{sensitive.id}}">{{sensitive.count }}</td>
+                <td id="status_{{sensitive.id}}">{{sensitive.status}}</td>
+                <td >{{sensitive.create_time }}</td>
+                <td>
+                   <a data-toggle="modal" data-target="#changeModal" onclick="get_sensitive_id('{{sensitive.id}}')">编辑</a>
+                   <a onclick="delete_object('{{sensitive.id}}')">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% include 'paginator.html' %}
+
+</div>
+
+    <!-- 新增模态框（Modal） -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    新用户
+                </h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-l">
+                    <form class="form-horizontal" id="add_form" method="post">
+                        {% csrf_token %}
+                        <!--<div class="form-group">-->
+                          <!--<div class="col-xs-2 control-label">-->
+                              <!--<label>文件</label>-->
+                          <!--</div>-->
+                          <!--<div class="col-xs-5">-->
+                              <!--<input class="form-control" id="file_name" name="fileName" placeholder="" required="" type="hidden" value="">-->
+                              <!--<input id="url" name="url" type="hidden" value="">-->
+                              <!--<input class="form-control" id="solr_file_id" name="file" type="file">-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <input class="form-control" name="action" type="hidden" value="add">
+                        <div class="form-group">
+                            <div class="col-xs-2 control-label">
+                                <label for="word">词条</label>
+                            </div>
+                            <div class="col-xs-10">
+                                <input class="form-control" id="word" name="word" style="width: 80%">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <div class="col-xs-2 control-label">
+                                <label for="table_type">父级词条id</label>
+                             </div>
+                             <div class="col-xs-10">
+                                <input class="form-control" id="table_type" name="table_type" style="width: 80%">
+                             </div>
+                         </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 control-label">
+                                <label for="count">计数</label>
+                            </div>
+                            <div class="col-xs-10">
+                                <input class="form-control" id="count" name="count" style="width: 80%">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 control-label">
+                                <label for="status">状态是否可用</label>
+                            </div>
+                            <div class="col-xs-10">
+                                <input class="form-control" id="status" name="status" style="width: 80%">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div><!--modal-body-->
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="creat_object()">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- 更新模态框（Modal） -->
+    <div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="addModalLabel">
+                        新用户
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+                  <div class="form-l">
+                      <form class="form-horizontal" id="change_form" method="post">
+                          {% csrf_token %}
+                          <input class="form-control" name="action" type="hidden" value="change">
+                          <input class="form-control" id="sensitive_id" name="sensitive_id" type="hidden" value="0">
+                          <div class="form-group">
+                              <div class="col-xs-2 control-label">
+                                  <label for="change_word">词条</label>
+                              </div>
+                              <div class="col-xs-10">
+                                  <input class="form-control" id="change_word" name="word"  maxlength="6" style="width: 80%">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-xs-2 control-label">
+                                  <label for="change_table_type">父级词条id</label>
+                              </div>
+                              <div class="col-xs-10">
+                                  <input class="form-control" id="change_table_type" name="table_type" style="width: 80%">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-xs-2 control-label">
+                                  <label for="change_count">计数</label>
+                              </div>
+                              <div class="col-xs-10">
+                                  <input class="form-control" id="change_count" name="count" style="width: 80%">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-xs-2 control-label">
+                                  <label for="change_status">状态是否可用</label>
+                              </div>
+                              <div class="col-xs-10">
+                                  <input class="form-control" id="change_status" name="status" style="width: 80%">
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+
+                </div><!--modal-body-->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="change_object()">
+                        提交
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+{% endblock %}
+
+{% block script %}
+<script>
+    function creat_object(){
+        $("#add_form").submit();
+    }
+
+    function get_sensitive_id(sensitive_id) {
+        var change_word = $("#word_"+sensitive_id).text();
+        var change_table_type = $("#table_type_"+sensitive_id).text();
+        var change_count = $("#count_"+sensitive_id).text();
+        var change_status = $("#status_"+sensitive_id).text();
+        $("#sensitive_id").attr({'value': sensitive_id});
+        $("#change_word").attr({'value': change_word});
+        $("#change_table_type").attr({'value': change_table_type});
+        $("#change_count").attr({'value': change_count});
+        $("#change_status").attr({'value': change_status});
+    }
+
+    function change_object(){
+     $("#change_form").submit();
+    }
+
+     function delete_object(sensitive_id) {
+        var url = window.location.href;
+        if (confirm("确认删除")==true) {
+            $.post(url, {action: 'delete', sensitive_id: sensitive_id, csrfmiddlewaretoken: '{{ csrf_token }}'});
+            location.reload();
+        }
+    }
+</script>
+{% endblock %}
+
+
+
+

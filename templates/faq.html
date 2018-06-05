@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Dashboard with Off-canvas Sidebar</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="{{url_for('static', filename='js/html5.js')}}"></script>
+		<![endif]-->
+		<link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+	</head>
+	<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">智能客服系统</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+</nav>
+
+<div class="container-fluid">
+      
+      <div class="row row-offcanvas row-offcanvas-left">
+        
+         <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
+           
+            <!--<ul class="nav nav-sidebar">-->
+              <!--<li class="active"><a href="#">Overview</a></li>-->
+              <!--<li><a href="http://bootstrapzero.com" target="_ext">Themes</a></li>-->
+              <!--<li><a href="http://bootstrap.theme.cards" target="_ext">Analytics</a></li>-->
+              <!--<li><a href="https://wrapbootstrap.com?ref=skelly" target="_ext">Export</a></li>-->
+            <!--</ul>-->
+            <!--<ul class="nav nav-sidebar">-->
+              <!--<li><a href="">Nav item</a></li>-->
+              <!--<li><a href="">Nav item again</a></li>-->
+              <!--<li><a href="">One more nav</a></li>-->
+              <!--<li><a href="">Another nav item</a></li>-->
+              <!--<li><a href="">More navigation</a></li>-->
+            <!--</ul>-->
+            <ul class="nav nav-sidebar">
+              <li><a href="client">客户信息表</a></li>
+              <li><a href="synonyms">同义词</a></li>
+              <li><a href="emotional">情感词</a></li>
+              <li><a href="sensitive">敏感词</a></li>
+              <li><a href="">系统配置</a></li>
+              <li><a href="">日志展示</a></li>
+            </ul>
+          
+        </div><!--/span-->
+        
+        <div class="col-sm-9 col-md-10 main">
+          
+          <!--toggle sidebar button-->
+          <!--<p class="visible-xs">-->
+            <!--<button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>-->
+          <!--</p>-->
+          <!--<br>-->
+		  <!--<h1 class="page-header">-->
+            <!--Dashboard-->
+            <!--<p class="lead">(<a href="http://www.bootply.com/128936">with off-canvas sidebar</a>)</p>-->
+          <!--</h1>-->
+
+          <!--<div class="row placeholders">-->
+            <!--<div class="col-xs-6 col-sm-3 placeholder text-center">-->
+              <!--<img src="//placehold.it/200/6666ff/fff" class="center-block img-responsive img-circle" alt="Generic placeholder thumbnail">-->
+              <!--<h4>Label</h4>-->
+              <!--<span class="text-muted">Something else</span>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6 col-sm-3 placeholder text-center">-->
+              <!--<img src="//placehold.it/200/66ff66/fff" class="center-block img-responsive img-circle" alt="Generic placeholder thumbnail">-->
+              <!--<h4>Label</h4>-->
+              <!--<span class="text-muted">Something else</span>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6 col-sm-3 placeholder text-center">-->
+              <!--<img src="//placehold.it/200/6666ff/fff" class="center-block img-responsive img-circle" alt="Generic placeholder thumbnail">-->
+              <!--<h4>Label</h4>-->
+              <!--<span class="text-muted">Something else</span>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6 col-sm-3 placeholder text-center">-->
+              <!--<img src="//placehold.it/200/66ff66/fff" class="center-block img-responsive img-circle" alt="Generic placeholder thumbnail">-->
+              <!--<h4>Label</h4>-->
+              <!--<span class="text-muted">Something else</span>-->
+            <!--</div>-->
+          <!--</div>-->
+          
+          <!--<hr>-->
+
+          <h2 class="sub-header">问题</h2>
+          <div class="table-responsive">
+            <form class="navbar-form" action="" method="post">
+              <input name="question" type="text" class="form-control" placeholder="question" value="{{question}}">
+              <input type="submit" value="搜索">
+            </form>
+            <div class="table-responsive">
+              <span>{{keywords }}</span>
+            </div>
+          </div>
+
+          <h2 class="sub-header">最佳答案</h2>
+          <div class="table-responsive">
+            <div class="best_answer">
+              <pre>{{best_answer }}</pre>
+            </div>
+          </div>
+
+          <h2 class="sub-header">推荐问题</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <!--<th>id</th>-->
+                  <th>问题</th>
+                  <th>相似度</th>
+                  <th>普遍度</th>
+                  <th>答案</th>
+                  <!--<th>关键词</th>-->
+                  <!--<th>平台</th>-->
+                </tr>
+              </thead>
+              <tbody>
+              {% for answer_instance in  question_auto%}
+                <tr>
+
+                  <td>{{answer_instance.question }}</td>
+                  <td>{{answer_instance.simi }}</td>
+                  <td>{{answer_instance.agrees }}</td>
+                  <!--<td>{{answer_instance.answer}}</td>-->
+                  <td>
+                    <div title="{{answer_instance.answer }}" style="width:200px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">{{answer_instance.answer }}</div>
+                  </td>
+                  <!--<td>{{answer_instance.words }}</td>-->
+                  <!--<td>{{answer_instance.platform }}</td>-->
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <!--<a href="http://www.bootply.com/gkTHCwjLO9">Get the Source Code</a> | <a href="http://bootstrap.theme.cards">More free Bootstrap themes</a>-->
+
+      </div><!--/row-->
+	</div>
+</div><!--/.container-->
+
+<footer>
+  <p class="pull-right">©2016 Company&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</footer>
+        
+	<!-- script references -->
+		<script src="{{url_for('static', filename='js/jquery-2.0.0/jquery.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/scripts.js')}}"></script>
+        <script>
+          function hello(){
+            alert("Hello World!");
+          }
+        </script>
+	</body>
+</html>

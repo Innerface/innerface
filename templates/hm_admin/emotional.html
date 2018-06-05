@@ -1,0 +1,230 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+    <div class="table-responsive">
+        <div class="table-responsive">
+          <!--<span>asdasdz</span>-->
+        </div>
+    </div>
+
+    <h2 class="sub-header">情感词管理</h2>
+    <div class="table-responsive">
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addModal">新建情感词</button>
+    </div>
+
+        <div class="table-responsive">
+        <table class="table table-striped ">
+            <thead>
+            <tr>
+              <!--<th>id</th>-->
+              <th>词条</th>
+              <th>情感词程度</th>
+              <th>情感词类型</th>
+              <th>计数</th>
+              <th>状态是否可用</th>
+              <th>创建时间</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for emotional in obj%}
+                <tr>
+                    <td id="word_{{emotional.id}}">{{emotional.word }}</td>
+                    <td id="table_type_{{emotional.id}}">{{emotional.table_type }}</td>
+                    <td id="emotion_type_{{emotional.id}}">{{emotional.emotion_type }}</td>
+                    <td id="count_{{emotional.id}}">{{emotional.count }}</td>
+                    <td id="status_{{emotional.id}}">{{emotional.status}}</td>
+                    <td >{{emotional.create_time }}</td>
+                    <td>
+                        <a data-toggle="modal" data-target="#changeModal" onclick="get_emotional_id('{{emotional.id}}')">编辑</a>
+                        <a onclick="delete_object('{{emotional.id}}')">删除</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% include 'paginator.html' %}
+    </div>
+
+    <!-- 新建模态框（Modal） -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        新情感词条
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+                <div class="form-l">
+                    <form class="form-horizontal" id="add_form" method="post">
+                    {% csrf_token %}
+                    <input class="form-control" name="action" type="hidden" value="add">
+                    <div class="form-group">
+                        <div class="col-xs-2 control-label">
+                            <label for="word">词条</label>
+                        </div>
+                        <div class="col-xs-10">
+                            <input class="form-control" id="word" name="word" style="width: 80%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2 control-label">
+                            <label for="table_type">情感词程度</label>
+                        </div>
+                        <div class="col-xs-10">
+                            <input class="form-control" id="table_type" name="table_type" style="width: 80%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2 control-label">
+                            <label for="emotion_type">情感词类型</label>
+                        </div>
+                        <div class="col-xs-10">
+                            <input class="form-control" id="emotion_type" name="emotion_type" style="width: 80%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2 control-label">
+                            <label for="count">计数</label>
+                        </div>
+                        <div class="col-xs-10">
+                            <input class="form-control" id="count" name="count" style="width: 80%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2 control-label">
+                            <label for="status">状态是否可用</label>
+                        </div>
+                        <div class="col-xs-10">
+                            <input class="form-control" id="status" name="status" style="width: 80%">
+                        </div>
+                    </div>
+                    </form>
+                </div>
+
+                </div><!--modal-body-->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="creat_object()">
+                        提交
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- 更新模态框（Modal） -->
+    <div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="addModalLabel">
+                        新用户
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-l">
+                    <form class="form-horizontal" id="change_form" method="post">
+                        {% csrf_token %}
+                        <input class="form-control" name="action" type="hidden" value="change">
+                        <input class="form-control" id="emotional_id" name="emotional_id" type="hidden" value="0">
+                        <div class="form-group">
+                            <div class="col-xs-2 control-label">
+                                <label for="change_word">词条</label>
+                            </div>
+                            <div class="col-xs-10">
+                                <input class="form-control" id="change_word" name="word"  maxlength="6" style="width: 80%">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 control-label">
+                                 <label for="change_table_type">情感词程度</label>
+                            </div>
+                            <div class="col-xs-10">
+                                 <input class="form-control" id="change_table_type" name="table_type" style="width: 80%">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 control-label">
+                               <label for="change_emotion_type">情感词类型</label>
+                            </div>
+                            <div class="col-xs-10">
+                               <input class="form-control" id="change_emotion_type" name="emotion_type" style="width: 80%">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 control-label">
+                               <label for="change_count">计数</label>
+                             </div>
+                             <div class="col-xs-10">
+                                <input class="form-control" id="change_count" name="count" style="width: 80%">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <div class="col-xs-2 control-label">
+                                 <label for="change_status">状态是否可用</label>
+                             </div>
+                             <div class="col-xs-10">
+                                <input class="form-control" id="change_status" name="status" style="width: 80%">
+                             </div>
+                        </div>
+                    </form>
+                    </div>
+
+                </div><!--modal-body-->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="change_object()">
+                        提交
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endblock %}
+
+{% block script %}
+    <script>
+        function creat_object(){
+            $("#add_form").submit();
+        }
+
+        function get_emotional_id(emotional_id) {
+            var change_word = $("#word_"+emotional_id).text();
+            var change_table_type = $("#table_type_"+emotional_id).text();
+            var change_emotion_type = $("#emotion_type_"+emotional_id).text();
+            var change_count = $("#count_"+emotional_id).text();
+            var change_status = $("#status_"+emotional_id).text();
+            $("#emotional_id").attr({'value': emotional_id});
+            $("#change_word").attr({'value': change_word});
+            $("#change_table_type").attr({'value': change_table_type});
+            $("#change_emotion_type").attr({'value': change_emotion_type});
+            $("#change_count").attr({'value': change_count});
+            $("#change_status").attr({'value': change_status});
+        }
+
+        function change_object(){
+            $("#change_form").submit();
+        }
+
+        function delete_object(emotional_id) {
+            var url = window.location.href;
+            if (confirm("确认删除")==true) {
+                $.post(url, {action: 'delete', emotional_id: emotional_id, csrfmiddlewaretoken:'{{ csrf_token }}'});
+                location.reload();
+            }
+        }
+
+    </script>
+{% endblock %}

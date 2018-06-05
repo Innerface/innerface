@@ -1,0 +1,31 @@
+[db]
+engine = mysql
+host = 127.0.0.1
+port = 3306
+user = root
+password = rCFs4QZMj1pJ+2E9RvhPtOipU0wP0pdl0ARS1WdVQPQ=
+database = J+gQz4tsQn5eUtmHQxZLnmMG55zWww7Bh9DfYjov5r8=
+
+[redis]
+host = 127.0.0.1
+port = 6379
+db = 1
+password = pm2SwCbfj5zbC87wwBYXn9tgjhylaCc4IRJPxMdNUCE=
+
+[mail]
+mail_enable = False
+email_host = xxx.xxx.com
+email_port = 25
+email_host_user = xxx
+email_host_password = w8xhrXMewQ8qU5GmDsc/4lea1e3372kFbSOTu1GSeDQ=
+email_use_tls = False
+email_use_ssl = False
+
+[crypto]
+keymaterial = ECcAALbGM3b0yGks3sRYXH66hUeF6Z6JyFq1ui2ZqdqB6zKyR7KZq16uJqU=
+key = ECcAAHi9JIJI+meC9+qOQPqfWIpT+ZOuRmLxv1mgzX9Wcaopsrd1eJAPro/shwZmYCfccHxfQoAZUrdszlr+1PCsNg0=
+token = HMAI
+
+[vendor_module]
+is_use = 1
+

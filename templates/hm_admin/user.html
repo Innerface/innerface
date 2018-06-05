@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Dashboard with Off-canvas Sidebar</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="/static/js/html5.js"></script>
+		<![endif]-->
+		<link href="/static/css/styles.css" rel="stylesheet">
+	</head>
+	<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">智能客服系统</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+</nav>
+
+<div class="container-fluid">
+      <div class="row row-offcanvas row-offcanvas-left">
+         <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
+            <ul class="nav nav-sidebar">
+              <li><a href="#">客户信息表</a></li>
+              <li><a href="../admin/synonyms">同义词</a></li>
+              <li><a href="../admin/emotional">情感词</a></li>
+              <li><a href="../admin/sensitive">敏感词</a></li>
+              <li><a href="../../">系统配置</a></li>
+              <li><a href="../../">日志展示</a></li>
+            </ul>
+        </div>
+        
+        <div class="col-sm-9 col-md-10 main">
+          <div class="table-responsive">
+            <div class="table-responsive">
+              <!--<span>asdasdz</span>-->
+            </div>
+          </div>
+
+          <h2 class="sub-header">客户管理</h2>
+          <div class="table-responsive">
+              <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">新建用户</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-striped ">
+              <thead>
+                <tr>
+                  <!--<th>id</th>-->
+                  <th>用户编码</th>
+                  <th>用户名</th>
+                  <th>渠道/平台标识</th>
+                  <th>网络ip</th>
+                  <th>电话</th>
+                  <th>渠道/平台</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for u in  obj%}
+                <tr>
+                  <td>{{u.id }}</td>
+                  <td>{{u.username }}</td>
+                  <td>{{u.first_name }}</td>
+                  <td>{{u.last_name}}</td>
+                  <td>{{u.email }}</td>
+                  <td>{{u.date_joined }}</td>
+                  <td>
+                    <a onclick="mechine.editShow(0)">编辑</a>
+                    <a onclick="mechine.delete({{client.id}})">删除</a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+      </div><!--/row-->
+
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            新用户
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        点击关闭按钮检查事件功能。
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            关闭
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                            提交更改
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+	</div>
+</div><!--/.container-->
+
+<footer>
+  <p class="pull-right">©2016 Company&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</footer>
+        
+	<!-- script references -->
+		<script src="/static/js/jquery-2.0.0/jquery.min.js"></script>
+		<script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src="/static/js/scripts.js"></script>
+        <script>
+          function hello(){
+            alert("Hello World!");
+          }
+        </script>
+	</body>
+</html>

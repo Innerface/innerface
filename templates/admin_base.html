@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Dashboard with Off-canvas Sidebar</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="{% static 'js/html5.js' %}"></script>
+		<![endif]-->
+		<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+	</head>
+
+	<body>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+              <div class="container-fluid">
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">智能客服系统</a>
+                  </div>
+                  <div class="navbar-collapse collapse">
+                      <ul class="nav navbar-nav navbar-right">
+                          <li><a href="#">Dashboard</a></li>
+                          <li><a href="#">Settings</a></li>
+                          <li><a href="#">Profile</a></li>
+                          <li><a href="#">Help</a></li>
+                          <li><a href="{% url 'logout' %}">注销</a></li>
+                      </ul>
+                      <form class="navbar-form navbar-right">
+                          <input type="text" class="form-control" placeholder="Search...">
+                      </form>
+                  </div>
+              </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row row-offcanvas row-offcanvas-left">
+                <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
+                    <ul class="nav nav-sidebar">
+                        <li><a href="../user">客户信息表</a></li>
+                        <li><a href="{% url 'synonyms' %}">同义词</a></li>
+                        <li><a href="{% url 'emotional' %}">情感词</a></li>
+                        <li><a href="{% url 'sensitive' %}">敏感词</a></li>
+                        <li><a href="../../">系统配置</a></li>
+                        <li><a href="../../">日志展示</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-9 col-md-10 main">
+                {% block content %}{% endblock %}
+                </div><!--/row-->
+            </div>
+        </div><!--/.container-->
+
+        <footer>
+            {% block footer %}{% endblock %}
+            <p class="pull-right">©2018 Company&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        </footer>
+
+	    <!-- script references -->
+		<script src="{% static 'js/jquery-2.0.0/jquery.min.js' %}"></script>
+		<script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/scripts.js' %}"></script>
+        {% block script %}{% endblock %}
+	</body>
+</html>

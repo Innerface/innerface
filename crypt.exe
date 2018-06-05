@@ -1,0 +1,15 @@
+[crypto]
+keymaterial = hemei_chatbot_manage_sys_keymaterial
+key = hemei_chatbot_manage_sys_key
+
+[db]
+password = root
+database = intelligentcs
+
+[redis]
+password = root
+
+[mail]
+email_host_password = root
+
+
