@@ -19,7 +19,7 @@ cryptography==2.1.4
 cssselect==1.0.3
 cycler==0.10.0
 DBUtils==1.2
-Django==2.0.2
+Django==2.2.10
 docutils==0.14
 et-xmlfile==1.0.1
 Flask==0.12.2
