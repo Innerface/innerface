@@ -87,7 +87,7 @@ sklearn==0.0
 smart-open==1.5.6
 snownlp==0.12.3
 SQLAlchemy==1.2.4
-tensorflow-gpu==1.5.0
+tensorflow-gpu==1.15.4
 tensorflow-tensorboard==1.5.1
 Theano==1.0.1
 Twisted==17.9.0
