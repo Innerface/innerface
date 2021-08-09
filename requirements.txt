@@ -68,7 +68,7 @@ python-dateutil==2.6.1
 python-docx==0.8.6
 python-Levenshtein==0.12.0
 pytz==2018.3
-pywin32==221
+pywin32==301
 PyYAML==3.12
 queuelib==1.4.2
 readability==0.2
