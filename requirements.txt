@@ -43,7 +43,7 @@ matplotlib==2.1.2
 Naked==0.1.31
 neo4j-driver==1.5.3
 nltk==3.2.5
-numpy==1.14.1
+numpy==1.22.0
 openpyxl==2.5.0
 pandas==0.22.0
 parsel==1.4.0
